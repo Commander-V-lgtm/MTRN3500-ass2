@@ -134,7 +134,13 @@
     <ClInclude Include="..\include\NetworkedModule.h" />
     <ClInclude Include="..\include\SMObjects.h" />
     <ClInclude Include="..\include\UGVModule.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="CrashAvoidance.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="GNSS.h" />
+    <ClInclude Include="LiDAR.h" />
     <ClInclude Include="TMM.h" />
+    <ClInclude Include="VC.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

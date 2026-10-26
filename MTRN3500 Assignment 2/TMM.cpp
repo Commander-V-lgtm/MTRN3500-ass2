@@ -14,4 +14,6 @@ bool ThreadManagement::getShutdownFlag() {
 	return true;
 }
 
-void ThreadManagement::threadFunction() {}
+void ThreadManagement::threadFunction() {
+
+}

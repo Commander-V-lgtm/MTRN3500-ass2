@@ -30,6 +30,24 @@
     <ClInclude Include="..\include\UGVModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrashAvoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GNSS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiDAR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
