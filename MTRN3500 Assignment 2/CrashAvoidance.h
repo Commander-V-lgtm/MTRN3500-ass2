@@ -4,10 +4,11 @@
 
 ref class CrashAvoidance : public UGVModule {
 public:
-    // Create shared memory objects
-    error_state setupSharedMemory();
+    // Constructor to set up members
+    CrashAvoidance(SM_ThreadManagement^ SM_TM);
 
     // Send/Recieve data from shared memory structures
+    // Process heartbeat updates
     error_state processSharedMemory() override;
 
     // Shutdown all modules in the software
@@ -20,5 +21,6 @@ public:
     void threadFunction() override;
 
 private:
-    // Add any additional data members or helper functions here
+    // Additional data members or helper functions
+    Stopwatch^ CA_Stopwatch;
 };

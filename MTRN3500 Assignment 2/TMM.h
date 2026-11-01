@@ -2,12 +2,31 @@
 
 #include <UGVModule.h>
 
+ref struct ThreadProperties
+{
+	ThreadStart^ ThreadStart_;
+	bool Critical;
+    uint16_t CrashLimit;
+	String^ ThreadName;
+	uint8_t BitID;
+
+	ThreadProperties(ThreadStart^ start, uint16_t crash_limit, uint8_t bit_id, String^ threadname)
+	{
+		ThreadStart_ = start;
+		Critical = bit_id & CRITICALMASK;
+        CrashLimit = crash_limit;
+		BitID = bit_id;
+		ThreadName = threadname;
+	}
+};
+
 ref class ThreadManagement : public UGVModule {
 public:
     // Create shared memory objects
     error_state setupSharedMemory();
 
     // Send/Recieve data from shared memory structures
+    // Process heartbeats update
     error_state processSharedMemory() override;
 
     // Shutdown all modules in the software
@@ -20,5 +39,11 @@ public:
     void threadFunction() override;
 
 private:
-    // Add any additional data members or helper functions here
+    // Additional data members or helper functions
+    SM_Laser^ SM_LASER_;
+    SM_GPS^ SM_GPS_;
+    SM_VehicleControl^ SM_VC_;
+    array<Stopwatch^>^ TM_StopwatchList;
+    array<Thread^>^ ThreadList;
+    array<ThreadProperties^>^ ThreadPropertiesList;
 };

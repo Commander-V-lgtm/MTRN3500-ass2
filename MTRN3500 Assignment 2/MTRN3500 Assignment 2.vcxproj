@@ -143,6 +143,8 @@
     <ClInclude Include="VC.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GNSS.cpp" />
+    <ClCompile Include="LiDAR.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TMM.cpp" />
   </ItemGroup>
