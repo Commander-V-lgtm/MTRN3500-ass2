@@ -1,2 +1,31 @@
-﻿  Main.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  MTRN3500 Assignment 2.vcxproj -> H:\Document\MTRN3500\ass2\weeder-assignment-unsw-main\Executables\MTRN3500 Assignment 2.exe
+﻿  GNSS.cpp
+  TMM.cpp
+  Generating Code...
+  GNSS.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+TMM.obj : error LNK2020: unresolved token (06000015) Controller::.ctor
+TMM.obj : error LNK2020: unresolved token (06000016) Controller::processSharedMemory
+TMM.obj : error LNK2020: unresolved token (06000017) Controller::shutdownModules
+TMM.obj : error LNK2020: unresolved token (06000018) Controller::getShutdownFlag
+TMM.obj : error LNK2020: unresolved token (06000019) Controller::threadFunction
+TMM.obj : error LNK2020: unresolved token (0600001A) CrashAvoidance::.ctor
+TMM.obj : error LNK2020: unresolved token (0600001B) CrashAvoidance::processSharedMemory
+TMM.obj : error LNK2020: unresolved token (0600001C) CrashAvoidance::shutdownModules
+TMM.obj : error LNK2020: unresolved token (0600001D) CrashAvoidance::getShutdownFlag
+TMM.obj : error LNK2020: unresolved token (0600001E) CrashAvoidance::threadFunction
+TMM.obj : error LNK2020: unresolved token (06000033) VehicleControl::.ctor
+TMM.obj : error LNK2020: unresolved token (06000034) VehicleControl::processSharedMemory
+TMM.obj : error LNK2020: unresolved token (06000035) VehicleControl::shutdownModules
+TMM.obj : error LNK2020: unresolved token (06000036) VehicleControl::getShutdownFlag
+TMM.obj : error LNK2020: unresolved token (06000037) VehicleControl::threadFunction
+TMM.obj : error LNK2020: unresolved token (06000038) VehicleControl::connect
+TMM.obj : error LNK2020: unresolved token (06000039) VehicleControl::disconnect
+TMM.obj : error LNK2020: unresolved token (0600003A) VehicleControl::communicate
+TMM.obj : error LNK2020: unresolved token (0600003B) Display::.ctor
+TMM.obj : error LNK2020: unresolved token (0600003C) Display::processSharedMemory
+TMM.obj : error LNK2020: unresolved token (0600003D) Display::shutdownModules
+TMM.obj : error LNK2020: unresolved token (0600003E) Display::getShutdownFlag
+TMM.obj : error LNK2020: unresolved token (0600003F) Display::threadFunction
+TMM.obj : error LNK2020: unresolved token (06000040) Display::connect
+TMM.obj : error LNK2020: unresolved token (06000041) Display::disconnect
+TMM.obj : error LNK2020: unresolved token (06000042) Display::communicate
+C:\Users\simeo\source\MTRN3500\MTRN3500-ass2-main\\Executables\MTRN3500 Assignment 2.exe : fatal error LNK1120: 26 unresolved externals
