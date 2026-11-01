@@ -18,10 +18,27 @@ For clarification of inheritance requirements see diagram in the assignment spec
 //#define WEEDER_ADDRESS "192.168.1.200"
 #define DISPLAY_ADDRESS "127.0.0.1" // Display is always running locally (run the MATLAB code separately)
 
+// Autentication definitions
+#define zID "xxxxxxxx\n"
+#define AUTH_AFFIRM "OK\n"
+
+// More definition of the ports and config
+#define LIDAR_PORT 23000
+#define GNSS_PORT 24000
+#define VC_PORT 25000
+#define GR_PORT 26000
+// Standard variables
+constexpr int SendBufferSize = 64;
+constexpr int RecvBufferSize = 2048;
+constexpr int SendTimeout = 500;
+constexpr int RecvTimeout = 500;
+constexpr bool NoDelay = true;
+
 ref class NetworkedModule abstract : public UGVModule
 {
 	public:
 		virtual error_state connect(String^ hostName, int portNumber) = 0;	// Establish TCP connection
+		virtual error_state disconnect() = 0;								// Quick disconnect of TCP
 		virtual error_state communicate() = 0;								// Communicate over TCP connection (includes any error checking required on data)
 
 	protected:

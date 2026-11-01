@@ -23,9 +23,9 @@ using namespace System::Diagnostics;
 
 // Defines which processes are critical and not critical
 // Ordering of processes in the mask should be based on the order in the UnitFlags type below.
-// You should change this based on what processes are and are not critical
-constexpr uint8_t NONCRITICALMASK = 0xff;
-constexpr uint8_t CRITICALMASK =    0x00;
+// Changed based on what processes are and are not critical
+constexpr uint8_t CRITICALMASK = 0b01111011;
+constexpr uint8_t NONCRITICALMASK = ~CRITICALMASK;
 
 constexpr uint8_t bit_ALL =             0b01111111;
 constexpr uint8_t bit_TM =              0b00000001;
@@ -35,6 +35,9 @@ constexpr uint8_t bit_VC =              0b00001000;
 constexpr uint8_t bit_CONTROLLER =      0b00010000;
 constexpr uint8_t bit_DISPLAY =         0b00100000;
 constexpr uint8_t bit_CRASHAVOIDANCE =  0b01000000;
+
+// Define the crash limit for the thread management thread
+constexpr uint16_t TM_CRASHLIMIT = 1000;
 
 ref class SM_ThreadManagement
 {

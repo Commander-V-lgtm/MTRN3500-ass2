@@ -15,14 +15,18 @@ For clarification of inheritance requirements see diagram in the assignment spec
 #include <SMObjects.h>
 
 // ERROR HANDLING. Use this as the return value in your functions
+// Defined additional error types as needed
 enum error_state {
 	SUCCESS,
 	ERR_STARTUP,
+	ERR_AUTHENTICATION,
 	ERR_NO_DATA,
 	ERR_INVALID_DATA,
 	ERR_SM,
-	ERR_CONNECTION
-	// Define your own additional error types as needed
+	ERR_CONNECTION,
+	ERR_CRITICAL_THREAD_FAILURE,
+	ERR_NONCRITICAL_THREAD_FAILURE,
+	ERR_TM_FAILURE,
 };
 
 ref class UGVModule abstract
@@ -30,6 +34,7 @@ ref class UGVModule abstract
 	public:
 		/**
 		 * Send/Recieve data from shared memory structures
+		 * Also responsible for processing hearbeats update
 		 *
 		 * @returns the success of this function at completion
 		*/
@@ -60,13 +65,33 @@ ref class UGVModule abstract
 				case SUCCESS:
 					std::cout << "Success." << std::endl;
 					break;
+				case ERR_STARTUP:
+					std::cout << "ERROR: Start-up Error." << std::endl;
+					break;
+				case ERR_AUTHENTICATION:
+					std::cout << "ERROR: Authentication Error." << std::endl;
+					break;
 				case ERR_NO_DATA:
 					std::cout << "ERROR: No Data Available." << std::endl;
 					break;
 				case ERR_INVALID_DATA:
 					std::cout << "ERROR: Invalid Data Received." << std::endl;
 					break;
-				// ADD PRINTOUTS FOR OTHER ERROR TYPES
+				case ERR_SM:
+					std::cout << "ERROR: Invalid Share Memory Proccessed." << std::endl;
+					break;
+				case ERR_CONNECTION:
+					std::cout << "ERROR: Invalid Connection." << std::endl;
+					break;
+				case ERR_CRITICAL_THREAD_FAILURE:
+					std::cout << "ERROR: Critical Thread Failed." << std::endl;
+					break;
+				case ERR_NONCRITICAL_THREAD_FAILURE:
+					std::cout << "ERROR: Non-critical Thread Failed." << std::endl;
+					break;
+				case ERR_TM_FAILURE:
+					std::cout << "ERROR: Thread Management Failed." << std::endl;
+					break;
 			}
 		}
 
