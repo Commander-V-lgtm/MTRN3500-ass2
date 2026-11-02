@@ -52,7 +52,6 @@ error_state LiDAR::processSharedMemory() {
 	}
 	else
 	{
-		printError(ret);
 		return ret;
 	}
 
@@ -75,6 +74,7 @@ void LiDAR::threadFunction() {
 	error_state ret = connect(WEEDER_ADDRESS, LIDAR_PORT);
 	if (ret != SUCCESS) {
 		printError(ret);
+		shutdownModules();
 		return;
 	}
 
@@ -116,10 +116,18 @@ error_state LiDAR::connect(String^ hostName, int portNumber) {
 	// Autentication
 	array<uint8_t>^ SendData = Text::Encoding::ASCII->GetBytes(zID);
 	Stream->Write(SendData, 0, SendData->Length);
-	Threading::Thread::Sleep(10);
+	Threading::Thread::Sleep(200);
 
-	int AuthenRep = Stream->Read(ReadData, 0, ReadData->Length);
-	Threading::Thread::Sleep(25);
+	// Try to authenticate comm
+	int AuthenRep = 0;
+	try {
+		AuthenRep = Stream->Read(ReadData, 0, ReadData->Length);
+		Threading::Thread::Sleep(25);
+	}
+	catch (Exception^ ex) {
+		Console::WriteLine("Failed to connect to LiDAR: " + ex->Message);
+		return error_state::ERR_AUTHENTICATION;
+	}
 
 	if (AuthenRep == 0) return error_state::ERR_AUTHENTICATION;
 	String^ AuthenS = Text::Encoding::ASCII->GetString(ReadData, 0, AuthenRep);
@@ -152,13 +160,27 @@ error_state LiDAR::disconnect() {
 error_state LiDAR::communicate() {
 	// Recieve data
 	if (Stream == nullptr) return error_state::ERR_CONNECTION;
-	array<uint8_t>^ SendData = Text::Encoding::ASCII->GetBytes("Command");
+	array<uint8_t>^ Command = Text::Encoding::ASCII->GetBytes("sRN LMDscandata");
+	array<uint8_t>^ SendData = gcnew array<uint8_t>(Command->Length + 2);
+	SendData[0] = 0x02;
+	Array::Copy(Command, 0, SendData, 1, Command->Length);
+	SendData[SendData->Length - 1] = 0x03;
+
 	Stream->Write(SendData, 0, SendData->Length);
-	Threading::Thread::Sleep(10);
+	Threading::Thread::Sleep(100);
 
-	int LidarRead = Stream->Read(ReadData, 0, ReadData->Length);
-	Threading::Thread::Sleep(25);
-
+	// TDOD: maybe add loop for data catching
+	// Try recievng the data, ekse quit
+	int LidarRead = 0;
+	try {
+		LidarRead = Stream->Read(ReadData, 0, ReadData->Length);
+		Threading::Thread::Sleep(25);
+	}
+	catch (Exception^ ex) {
+		Console::WriteLine("Failed to connect to LiDAR: " + ex->Message);
+		shutdownModules();
+		return error_state::ERR_INVALID_DATA;
+	}
 	if (LidarRead == 0) return error_state::ERR_NO_DATA;
 	LMDscandata = Text::Encoding::ASCII->GetString(ReadData, 0, LidarRead);
 
@@ -171,11 +193,13 @@ error_state LiDAR::communicate() {
 	int NumberData = System::Convert::ToInt32(StringArray[25], 16);
 	if (NumberData != STANDARD_LASER_LENGTH) return error_state::ERR_INVALID_DATA;
 	array <double >^ Range = gcnew array <double >(NumberData);
+	Console::WriteLine("LiDAR Readout:");
 	for (int i = 0; i < NumberData; i++)
 	{
 		Range[i] = System::Convert::ToInt32(StringArray[26 + i], 16);
-		RangeX[i] = Range[i] * sin(i * Resolution + StartAngle);
-		RangeY[i] = -Range[i] * cos(i * Resolution + StartAngle);
+		RangeX[i] = Range[i] * sin((i * Resolution + StartAngle) * Math::PI / 180.0);
+		RangeY[i] = -Range[i] * cos((i * Resolution + StartAngle) * Math::PI / 180.0);
+		Console::WriteLine("{0}: [{1, 3:f3}, {2, 3:f3}]", i, RangeX[i], RangeY[i]);
 	}
 
 	return error_state::SUCCESS;

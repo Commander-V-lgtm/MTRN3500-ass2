@@ -72,7 +72,7 @@ void ThreadManagement::threadFunction() {
 	// Moddify here to add or remove threads
 	ThreadPropertiesList = gcnew array<ThreadProperties^> {
 		gcnew ThreadProperties(gcnew ThreadStart(gcnew LiDAR(SM_TM_, SM_LASER_), &LiDAR::threadFunction), 1000, bit_LASER, "LiDAR Thread"),
-		gcnew ThreadProperties(gcnew ThreadStart(gcnew GNSS(SM_TM_, SM_GPS_), &GNSS::threadFunction), 1000, bit_GPS, "GNSS Thread"),
+		//gcnew ThreadProperties(gcnew ThreadStart(gcnew GNSS(SM_TM_, SM_GPS_), &GNSS::threadFunction), 1000, bit_GPS, "GNSS Thread"),
 		//gcnew ThreadProperties(gcnew ThreadStart(gcnew VehicleControl(SM_TM_, SM_VC_), &VehicleControl::threadFunction), 1000, bit_VC, "VehicleControl Thread"),
 		//gcnew ThreadProperties(gcnew ThreadStart(gcnew Controller(SM_TM_), &Controller::threadFunction), 1000, bit_CONTROLLER, "Controller Thread"),
 		//gcnew ThreadProperties(gcnew ThreadStart(gcnew Display(SM_TM_), &Display::threadFunction), 1000, bit_DISPLAY, "Display Thread"),
