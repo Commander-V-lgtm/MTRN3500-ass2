@@ -19,7 +19,7 @@ For clarification of inheritance requirements see diagram in the assignment spec
 #define DISPLAY_ADDRESS "127.0.0.1" // Display is always running locally (run the MATLAB code separately)
 
 // Autentication definitions
-#define zID "xxxxxxxx\n"
+#define zID "5591778\n"
 #define AUTH_AFFIRM "OK\n"
 
 // More definition of the ports and config
